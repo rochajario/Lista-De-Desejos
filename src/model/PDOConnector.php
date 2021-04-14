@@ -8,7 +8,7 @@ class PDOConnector
 
     public static function getConnectionPrd(){
         if (!isset(self::$producao)):
-            self::$producao = new \PDO('mysql:host=us-cdbr-east-03.cleardb.com;dbname=heroku_046758d71938067','b5b821a31dc780','f2e2557c');
+            self::$producao = new \PDO('mysql:host=us-cdbr-east-03.cleardb.com;dbname=heroku_046758d71938067','b3d6a95e582059','48353895');
         endif;
         return self::$producao;
     }

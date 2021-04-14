@@ -71,20 +71,4 @@ class ProdutoDaoTest extends TestCase
         self::assertTrue($this->dao->delete(2));
         $this->pdo->rollBack();
     }
-
-    /**
-     * @dataProvider produtosInvalidos
-     */
-    
-    /*
-    
-    public function testDeveriaFalharAoCadastrarItemIvalido(Produto $produto):void 
-    {
-        $this->pdo->beginTransaction();
-        self::assertFalse($this->dao->create($produto));
-        $this->pdo->rollBack();
-    }
-    
-    */
-
 }

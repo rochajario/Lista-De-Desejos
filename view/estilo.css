@@ -1,0 +1,138 @@
+/*
+    font-family: 'Chakra Petch', sans-serif;
+    font-family: 'Press Start 2P', cursive;
+    font-family: 'Zilla Slab Highlight', cursive;
+*/
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&family=Press+Start+2P&family=Zilla+Slab+Highlight&display=swap');
+
+
+body{
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 9pt;
+    margin:0;
+    padding:0;
+    background-image: url('plano-de-fundo.jpg');
+}
+.cabecalho{
+    margin:0;
+    margin-bottom: 15px;
+    padding:0;
+    width: 100%;
+    color:rgba(248, 248, 255, 0.877);
+    background-color: rgba(58, 82, 126, 0.911);
+    box-shadow: inset 1px 2px 1px rgba(0, 0, 0, 0.336);
+
+    text-align: center;
+    align-content: center;
+    vertical-align: center;    
+    padding-left: 15px;
+    padding-right: 15px;
+
+    display: flex;
+    justify-content:space-between;
+    flex-direction: center;
+    flex-wrap:wrap;
+}
+main{
+    display: flex;
+    justify-content:center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+main fieldset{
+    background-color: rgba(128, 159, 160, 0.425);
+    border-radius: 8px;
+    border-color: rgba(169, 169, 169, 0.863);
+    box-shadow: inset 1px 2px 1px rgba(0, 0, 0, 0.336);
+}
+main legend{
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 2px 1px rgba(0, 0, 0, 0.336);
+}
+.produtos-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.produtos{
+    width: 100%;
+    padding:5px;
+}
+.img-grande{
+    width: 150px;
+    height: auto;
+    padding:5px;
+}
+.img-pequena{
+    width: 75px;
+    height: auto;
+    padding:5px;
+}
+.produtos table{
+    width: max-content;
+    padding: 10px;
+    margin-top:5px;
+    margin-bottom:10px;
+    background-color: ghostwhite;
+    border-radius: 8px;
+    font-size: larger;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.336);
+}
+th{
+    text-align: center;
+}
+td{
+    text-align: center;
+}
+legend{
+    font-size: 12pt;
+}
+
+.nav{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    flex-wrap: nowrap;
+    margin: 10px;
+    margin-right: 20px;
+}
+.nav div{
+    padding: 10px;
+    align-content: center;
+}
+.btn-nav{
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+.btn-nav :any-link{
+    color:rgba(58, 82, 126, 0.911);
+    text-decoration: none;
+}
+.btn-nav-add a:hover{
+    color:rgba(41, 163, 112, 0.911);
+    text-shadow: 1px 2px 1px rgba(90, 89, 89, 0.336);
+    text-decoration: none;
+}
+.btn-nav-edit a:hover{
+    color:rgba(163, 130, 41, 0.911);
+    text-shadow: 1px 1px 1px rgba(90, 89, 89, 0.336);
+    text-decoration: none;
+}
+.btn-nav-remove a:hover{
+    color:rgb(172, 17, 17);
+    text-shadow: 1px 2px 1px rgba(90, 89, 89, 0.336);
+    text-decoration: none;
+}
+.cabecalho h1{
+    font-family: 'Press Start 2P', cursive;
+    font-size:x-large;
+}
+.cabecalho :any-link{
+    color: ghostwhite;
+    text-decoration: none;
+}

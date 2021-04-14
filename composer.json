@@ -1,0 +1,24 @@
+{
+    "name": "rochajario/lista-de-desejos",
+    "description": "Gerenciador de Lista de Desejos",
+    "type": "project",
+    "license": "gplv2",
+    "authors": [
+        {
+            "name": "Jario Rocha",
+            "email": "rochajario@gmail.com"
+        }
+    ],
+    "autoload":{
+        "psr-4":{
+            "rochajario\\ListaDeDesejos\\":"src/",
+            "rochajario\\ListaDeDesejos\\tests\\":"tests/"
+        }
+    },
+    "scripts":{
+        "phpunit":".\\vendor\\bin\\phpunit"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "8"
+    }
+}

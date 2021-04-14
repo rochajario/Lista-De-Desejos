@@ -1,0 +1,11 @@
+rochajario\ListaDeDesejos\tests\PDOConnector
+ [x] Deveria validar instancia de banco de teste
+ [x] Deveria validar instancia de banco de producao
+
+rochajario\ListaDeDesejos\tests\ProdutoDao
+ [x] Deveria cadastrar item valido with data set "Produto 1"
+ [x] Deveria cadastrar item valido with data set "Produto 2"
+ [x] Deveria recuperar item do banco
+ [x] Deveria atualizar item do banco
+ [x] Deveria deletar item do banco
+

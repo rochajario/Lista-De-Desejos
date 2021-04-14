@@ -10,7 +10,7 @@ CREATE TABLE produtos (
     PRIMARY KEY(id)
 );
 
-INSERT INTO produtos (nome,preco) VALUES ("Cubo Magico", "25", "Cubo_Magico.jpg");
-INSERT INTO produtos (nome,preco) VALUES ("Livro: Design Patterns", "99.5", "Design_Patterns.jpg");
+INSERT INTO produtos (nome,preco) VALUES ("Cubo Magico", "25", "imagens/Cubo_Magico.jpg");
+INSERT INTO produtos (nome,preco) VALUES ("Livro: Design Patterns", "99.5", "imagens/Design_Patterns.jpg");
 
 

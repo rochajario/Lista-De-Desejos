@@ -27,8 +27,4 @@ class ProdutoHandler
         }
         return new Produto($dados['nome'],$dados['preco'],$dados['imagem'],$dados['id']);
     }
-    public function deleta(array $input)
-    {
-
-    }
 }

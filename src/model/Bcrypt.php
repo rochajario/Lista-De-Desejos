@@ -13,6 +13,7 @@ class Bcrypt
         self::$output = (crypt($input, '$2a$' . $cost . '$' . $salt . '$'));
         return self::$output;
     }
+    
     public static function validate($input, $hash)
     {
         if (crypt($input, $hash) === $hash) :

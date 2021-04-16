@@ -21,7 +21,12 @@ CREATE TABLE produtos (
 );
 
 INSERT INTO usuarios (username,senha) VALUES ("admin","admin");
+INSERT INTO usuarios (username,senha) VALUES ("convidado","convidado");
+
 INSERT INTO produtos (nome,preco,imagem,id_usuario) VALUES ("Cubo Magico", "25", "imagens/CuboMagico.jpg","1");
 INSERT INTO produtos (nome,preco,imagem,id_usuario) VALUES ("Livro: Design Patterns", "55.9", "imagens/DesignPatterns.jpg","1");
+
+INSERT INTO produtos (nome,preco,imagem,id_usuario) VALUES ("Funko Pop! Game Of Thrones", "199.9", "imagens/FunkoPopBattleOfTheBastards.jpg","2");
+INSERT INTO produtos (nome,preco,imagem,id_usuario) VALUES ("PC Gamer", "2999", "imagens/PcGamer.jpg","2");
 
 

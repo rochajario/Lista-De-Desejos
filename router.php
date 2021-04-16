@@ -38,19 +38,19 @@ if(empty($_SESSION['produtos'])){
 
 if(isset($_POST['cadastrar-produto'])){
     novoProduto($dao);
-    $_SESSION['produtos'] = atualizaProdutos();
+    $_SESSION['produtos'] = atualizaProdutos($_SESSION['usuario']);
     header('Location: index.php');
 }
 
 if(isset($_POST['alterar-produto'])){
     alteraProduto();
-    $_SESSION['produtos'] = atualizaProdutos();
+    $_SESSION['produtos'] = atualizaProdutos($_SESSION['usuario']);
     header('Location: index.php');
 }
 
 if(isset($_GET['remover-produto'])){
     deletaProduto($_GET['remover-produto']);
-    $_SESSION['produtos'] = atualizaProdutos();
+    $_SESSION['produtos'] = atualizaProdutos($_SESSION['usuario']);
     header('Location: index.php');
 }
 
@@ -84,7 +84,6 @@ function atualizaProdutos(Usuario $usuario)
 {
     $dao = new ProdutoDao(Pdo::getConnectionDev());
     return $dao->read($usuario->getId());
-
 }
 
 //Gerencia Produtos
@@ -94,7 +93,7 @@ function novoProduto()
     $arquivador = new Arquivador();
     $arquivador->arquiva($_FILES['arquivo']);
     $enderecoImagem = $arquivador->obtemDestinoArquivo();
-    $produto = new Produto($_POST['nome'],$_POST['preco'],$enderecoImagem,$_POST['id']);
+    $produto = new Produto($_POST['nome'],$_POST['preco'],$enderecoImagem,$_POST['id'],$_SESSION['usuario']->getId());
     $dao->create($produto);
 }
 
@@ -104,7 +103,7 @@ function alteraProduto():void
     $produtoAntigo = procuraProduto($_POST['id']);
 
     if(!isset($_FILES['arquivo'])){
-        $produto = new Produto($_POST['nome'],$_POST['preco'],$produtoAntigo['imagem'],$_POST['id']);
+        $produto = new Produto($_POST['nome'],$_POST['preco'],$produtoAntigo['imagem'],$_POST['id'],$_SESSION['usuario']->getId());
         $dao->update($produto);
         return;
     }
@@ -114,7 +113,7 @@ function alteraProduto():void
     $arquivador->arquiva($_FILES['arquivo']);
     $enderecoImagem = $arquivador->obtemDestinoArquivo();
 
-    $produto = new Produto($_POST['nome'],$_POST['preco'],$enderecoImagem,$_POST['id']);
+    $produto = new Produto($_POST['nome'],$_POST['preco'],$enderecoImagem,$_POST['id'],$_SESSION['usuario']->getId());
     $dao->update($produto);
 }
 
@@ -122,13 +121,13 @@ function procuraProduto($id): ?Produto
 {
     $dao = new ProdutoDao(Pdo::getConnectionDev());
     $dados = null;
-    $bancoDeDados = $dao->read();
+    $bancoDeDados = $dao->read(null);
     foreach($bancoDeDados as $produto){
         if($produto['id']==$id){
             $dados = $produto;
         }
     }
-    return new Produto($dados['nome'],$dados['preco'],$dados['imagem'],$dados['id']);
+    return new Produto($dados['nome'],$dados['preco'],$dados['imagem'],$dados['id'],$_SESSION['usuario']->getId());
 }
 
 function deletaProduto($id)

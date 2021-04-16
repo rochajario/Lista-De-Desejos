@@ -25,13 +25,19 @@ class Produto implements Persistivel
     {
         return $this->dados['id'];
     }
+
+    public function getIdUsuario()
+    {
+        return $this->dados['id_usuario'];
+    }
     
-    public function __construct(string $nome, string $preco, ?string $imagem, ?string $id)
+    public function __construct(string $nome, string $preco, ?string $imagem, ?string $id, ?string $id_usuario)
     {
         $this->dados['nome']=$nome;
         $this->dados['preco']=$preco;
         $this->dados['imagem']=$imagem;
         $this->dados['id']=$id;
+        $this->dados['id_usuario']=$id_usuario;
     }
 
 }

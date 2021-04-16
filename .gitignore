@@ -1,3 +1,4 @@
 /vendor
 phpunit.xml
 testes-executados.txt
+*.cache

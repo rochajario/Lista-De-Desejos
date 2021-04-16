@@ -8,11 +8,12 @@ class ProdutoDAO extends DataAccessObject
 {
     public function create(Persistivel $objeto):bool
     {
-        $sql = 'INSERT INTO produtos (nome,preco,imagem) VALUES (?,?,?);';
+        $sql = 'INSERT INTO produtos (nome,preco,imagem,id_usuario) VALUES (?,?,?,?);';
         $stmt = $this->instancia->prepare($sql);
         $stmt->bindValue(1, $objeto->getNome());
         $stmt->bindValue(2, $objeto->getPreco());
         $stmt->bindValue(3, $objeto->getImagem());
+        $stmt->bindValue(4, $objeto->getIdUsuario());
         $status = $stmt->execute();
         return $status;
         

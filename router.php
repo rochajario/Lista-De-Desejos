@@ -82,14 +82,14 @@ function removeDoCarrinho($itemSelecionado)
 //Gerencia Área de Exibição
 function atualizaProdutos(Usuario $usuario)
 {
-    $dao = new ProdutoDao(Pdo::getConnectionDev());
+    $dao = new ProdutoDao(Pdo::getConnectionPrd());
     return $dao->read($usuario->getId());
 }
 
 //Gerencia Produtos
 function novoProduto()
 {
-    $dao = new ProdutoDao(Pdo::getConnectionDev());
+    $dao = new ProdutoDao(Pdo::getConnectionPrd());
     $arquivador = new Arquivador();
     $arquivador->arquiva($_FILES['arquivo']);
     $enderecoImagem = $arquivador->obtemDestinoArquivo();
@@ -99,7 +99,7 @@ function novoProduto()
 
 function alteraProduto():void 
 {
-    $dao = new ProdutoDao(Pdo::getConnectionDev());
+    $dao = new ProdutoDao(Pdo::getConnectionPrd());
     $produtoAntigo = procuraProduto($_POST['id']);
 
     if(!isset($_FILES['arquivo'])){
@@ -119,7 +119,7 @@ function alteraProduto():void
 
 function procuraProduto($id): ?Produto
 {
-    $dao = new ProdutoDao(Pdo::getConnectionDev());
+    $dao = new ProdutoDao(Pdo::getConnectionPrd());
     $dados = null;
     $bancoDeDados = $dao->read(null);
     foreach($bancoDeDados as $produto){
@@ -132,7 +132,7 @@ function procuraProduto($id): ?Produto
 
 function deletaProduto($id)
 {
-    $dao = new ProdutoDao(Pdo::getConnectionDev());
+    $dao = new ProdutoDao(Pdo::getConnectionPrd());
     $produtoAntigo = procuraProduto($id);
     Arquivador::deleta($produtoAntigo->getImagem());
     $dao->delete($id);
@@ -140,7 +140,7 @@ function deletaProduto($id)
 
 function loginUsuario(array $formulario):array
 {
-    $dao = new UsuarioDao(Pdo::getConnectionDev());
+    $dao = new UsuarioDao(Pdo::getConnectionPrd());
     $acesso = ['status','dados'];
     $acesso["status"]=false;
 

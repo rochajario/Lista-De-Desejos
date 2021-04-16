@@ -42,7 +42,7 @@
             <table>
                 <tr>
                     <th>Nome:</th>
-                    <td><input type='text' name='nome' placeholder="Nome"></td>
+                    <td><input type='text' name='nome' value="Nome"></td>
                 </tr>
                 <tr>
                     <th>Preço:</th>

@@ -1,11 +1,22 @@
-rochajario\ListaDeDesejos\tests\PDOConnector
- [x] Deveria validar instancia de banco de teste
- [x] Deveria validar instancia de banco de producao
-
 rochajario\ListaDeDesejos\tests\ProdutoDao
- [x] Deveria cadastrar item valido with data set "Produto 1"
  [x] Deveria cadastrar item valido with data set "Produto 2"
+ [x] Deveria cadastrar item valido with data set "Produto 1"
  [x] Deveria recuperar item do banco
  [x] Deveria atualizar item do banco
  [x] Deveria deletar item do banco
+ [x] Deveria recuperar itens especificos do banco
+
+rochajario\ListaDeDesejos\tests\UsuarioDao
+ [x] Deveria cadastrar usuario valido with data set "Usuario 1"
+ [x] Deveria cadastrar usuario valido with data set "Usuario 2"
+ [x] Deveria recuperar usuario do banco
+ [x] Deveria atualizar usuario do banco
+ [x] Deveria deletar usuario do banco
+
+rochajario\ListaDeDesejos\tests\Bcrypt
+ [x] Bcrypt deveria validar entrada
+
+rochajario\ListaDeDesejos\tests\PDOConnector
+ [x] Deveria validar instancia de banco de teste
+ [x] Deveria validar instancia de banco de producao
 

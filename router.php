@@ -2,17 +2,38 @@
 
 require 'vendor/autoload.php';
 use rochajario\ListaDeDesejos\model\ArquivadorDeImagens as Arquivador;
-use rochajario\ListaDeDesejos\model\Produto;
-use rochajario\ListaDeDesejos\model\ProdutoDAO as Dao;
+use rochajario\ListaDeDesejos\model\ClassesPersistiveis\Produto;
+use rochajario\ListaDeDesejos\model\ClassesPersistiveis\Usuario;
+use rochajario\ListaDeDesejos\model\ProdutoDAO;
+use rochajario\ListaDeDesejos\model\UsuarioDAO;
 use rochajario\ListaDeDesejos\model\PDOConnector as Pdo;
 
 session_start();
-$_SESSION['produtos'];
-$_SESSION['carrinho'];
+$_SESSION['usuario'];
+
+if (empty($_SESSION['usuario'])){
+    header("Location: login.php");
+}
+
+if(isset($_POST['btn-login'])){
+    
+    $formulario = obtemDadosDeLogin();
+    $acesso = loginUsuario($formulario);
+    
+    if (!$acesso['status']){
+        header("Location: login.php");
+    }
+
+    $_SESSION['usuario'] = $acesso['dados'];
+    $_SESSION['produtos'] = atualizaProdutos($_SESSION['usuario']);
+    $_SESSION['carrinho'];
+    
+    header("Location: produtos.php");
+}
 
 if(empty($_SESSION['produtos'])){
-    $_SESSION['produtos'] = atualizaProdutos($dao);
-    header('Location: index.php');
+    $_SESSION['produtos'] = atualizaProdutos($_SESSION['usuario']);
+    header('Location: produtos.php');
 }
 
 if(isset($_POST['cadastrar-produto'])){
@@ -46,7 +67,7 @@ if(isset($_GET['remover-item-carrinho'])){
 //Gerencia Carrinho
 function adicionaAoCarrinho($itemSelecionado)
 {
-    $_SESSION['carrinho'][]=procura($itemSelecionado);
+    $_SESSION['carrinho'][]=procuraProduto($itemSelecionado);
 }
 
 function removeDoCarrinho($itemSelecionado)
@@ -59,17 +80,17 @@ function removeDoCarrinho($itemSelecionado)
 }
 
 //Gerencia Área de Exibição
-function atualizaProdutos()
+function atualizaProdutos(Usuario $usuario)
 {
-    $dao = new Dao(Pdo::getConnectionPrd());
-    return $dao->read();
+    $dao = new ProdutoDao(Pdo::getConnectionDev());
+    return $dao->read($usuario->getId());
 
 }
 
 //Gerencia Produtos
 function novoProduto()
 {
-    $dao = new Dao(Pdo::getConnectionPrd());
+    $dao = new ProdutoDao(Pdo::getConnectionDev());
     $arquivador = new Arquivador();
     $arquivador->arquiva($_FILES['arquivo']);
     $enderecoImagem = $arquivador->obtemDestinoArquivo();
@@ -79,8 +100,8 @@ function novoProduto()
 
 function alteraProduto():void 
 {
-    $dao = new Dao(Pdo::getConnectionPrd());
-    $produtoAntigo = procura($_POST['id']);
+    $dao = new ProdutoDao(Pdo::getConnectionDev());
+    $produtoAntigo = procuraProduto($_POST['id']);
 
     if(!isset($_FILES['arquivo'])){
         $produto = new Produto($_POST['nome'],$_POST['preco'],$produtoAntigo['imagem'],$_POST['id']);
@@ -97,9 +118,9 @@ function alteraProduto():void
     $dao->update($produto);
 }
 
-function procura($id): ?Produto
+function procuraProduto($id): ?Produto
 {
-    $dao = new Dao(Pdo::getConnectionPrd());
+    $dao = new ProdutoDao(Pdo::getConnectionDev());
     $dados = null;
     $bancoDeDados = $dao->read();
     foreach($bancoDeDados as $produto){
@@ -112,8 +133,34 @@ function procura($id): ?Produto
 
 function deletaProduto($id)
 {
-    $dao = new Dao(Pdo::getConnectionPrd());
-    $produtoAntigo = procura($id);
+    $dao = new ProdutoDao(Pdo::getConnectionDev());
+    $produtoAntigo = procuraProduto($id);
     Arquivador::deleta($produtoAntigo->getImagem());
     $dao->delete($id);
+}
+
+function loginUsuario(array $formulario):array
+{
+    $dao = new UsuarioDao(Pdo::getConnectionDev());
+    $acesso = ['status','dados'];
+    $acesso["status"]=false;
+
+    $bancoDeDados = $dao->read(null);
+    foreach($bancoDeDados as $usuario){
+        if($usuario['username'] === $formulario['username']){
+            if($usuario['senha'] === $formulario['senha']){
+                $acesso['status']=true;
+                $acesso['dados']=new Usuario($usuario['username'],null,$usuario['id']);
+            }
+        }
+    }
+    return $acesso;
+}
+
+function obtemDadosDeLogin():array
+{
+    $forumario = ['username','senha'];
+    $formulario["username"]=$_POST['username'];
+    $formulario['senha']=$_POST['senha'];
+    return $formulario;
 }

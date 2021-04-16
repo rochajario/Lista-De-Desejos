@@ -4,7 +4,7 @@ namespace rochajario\ListaDeDesejos\tests;
 use PHPUnit\Framework\TestCase;
 use rochajario\ListaDeDesejos\model\PDOConnector;
 use rochajario\ListaDeDesejos\model\ProdutoDAO;
-use rochajario\ListaDeDesejos\model\Produto;
+use rochajario\ListaDeDesejos\model\ClassesPersistiveis\Produto;
 
 class ProdutoDaoTest extends TestCase
 {
@@ -50,7 +50,14 @@ class ProdutoDaoTest extends TestCase
 
     public function testDeveriaRecuperarItemDoBanco():void 
     {
-        $dados = $this->dao->read();
+        $dados = $this->dao->read(null);
+        self::assertTrue(is_array($dados));
+        self::assertEquals("Cubo Magico",$dados[0]["nome"]);
+        self::assertEquals("25",$dados[0]["preco"]);
+    }
+    public function testDeveriaRecuperarItensEspecificosDoBanco():void 
+    {
+        $dados = $this->dao->read(1);
         self::assertTrue(is_array($dados));
         self::assertEquals("Cubo Magico",$dados[0]["nome"]);
         self::assertEquals("25",$dados[0]["preco"]);

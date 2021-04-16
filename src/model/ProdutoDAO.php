@@ -2,47 +2,50 @@
 namespace rochajario\ListaDeDesejos\model;
 use rochajario\ListaDeDesejos\model\Produto;
 use rochajario\ListaDeDesejos\model\PDOConnector;
+use rochajario\ListaDeDesejos\model\ClassesPersistiveis\Persistivel;
 
-class ProdutoDAO
+class ProdutoDAO extends DataAccessObject
 {
-    private \PDO $instancia;
-
-    public function __construct(\PDO $instancia)
-    {
-        $this->instancia = $instancia;
-    }   
-
-    public function create(Produto $produto):bool
+    public function create(Persistivel $objeto):bool
     {
         $sql = 'INSERT INTO produtos (nome,preco,imagem) VALUES (?,?,?);';
         $stmt = $this->instancia->prepare($sql);
-        $stmt->bindValue(1, $produto->getNome());
-        $stmt->bindValue(2, $produto->getPreco());
-        $stmt->bindValue(3, $produto->getImagem());
+        $stmt->bindValue(1, $objeto->getNome());
+        $stmt->bindValue(2, $objeto->getPreco());
+        $stmt->bindValue(3, $objeto->getImagem());
         $status = $stmt->execute();
         return $status;
         
     }
     
-    public function read():array
+    public function read(?int $id):array
     {
-        $sql = 'SELECT * FROM produtos;';
-        $stmt = $this->instancia->prepare($sql);
+        if($id == null){
+            $sql = 'SELECT * FROM produtos;';
+            $stmt = $this->instancia->prepare($sql);
+        }
+        else{
+            $sql = 'SELECT * FROM produtos WHERE id_usuario=?;';
+            $stmt = $this->instancia->prepare($sql);
+            $stmt->bindValue(1,$id);
+        }
         $stmt->execute();
         $result = $stmt->fetchAll();
         return $result;
     }
-    public function update(Produto $produto):bool
+    
+    public function update(Persistivel $objeto):bool
     {
         $sql = 'UPDATE produtos SET nome=?,preco=?,imagem=? WHERE id=?;';
         $stmt = $this->instancia->prepare($sql);
-        $stmt->bindValue(1,$produto->getNome());
-        $stmt->bindValue(2,$produto->getPreco());
-        $stmt->bindValue(3,$produto->getImagem());
-        $stmt->bindValue(4,$produto->getId());
+        $stmt->bindValue(1,$objeto->getNome());
+        $stmt->bindValue(2,$objeto->getPreco());
+        $stmt->bindValue(3,$objeto->getImagem());
+        $stmt->bindValue(4,$objeto->getId());
         $status = $stmt->execute();
         return $status;
     }
+
     public function delete(int $id):bool
     {
         $sql = 'DELETE FROM produtos WHERE id=?;';

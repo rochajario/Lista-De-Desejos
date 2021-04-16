@@ -1,6 +1,9 @@
 <?php
     require 'vendor/autoload.php';
     session_start();
+    if(!$_SESSION['usuario']){
+        header('Location: login.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

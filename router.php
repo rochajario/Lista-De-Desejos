@@ -159,7 +159,7 @@ function loginUsuario(array $formulario):array
 function obtemDadosDeLogin():array
 {
     $forumario = ['username','senha'];
-    $formulario["username"]=$_POST['username'];
-    $formulario['senha']=$_POST['senha'];
+    $formulario["username"] = $_POST['username'];
+    $formulario['senha'] = $_POST['senha'];
     return $formulario;
 }
